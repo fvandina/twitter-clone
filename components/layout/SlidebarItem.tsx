@@ -48,7 +48,7 @@ const SlidebarItem: React.FC<SlidebarItemsProps> = ({
       "
       >
         <Icon size={24} color="white" />
-        <p className=" hidden lg:block  text-white">
+        <p className=" hidden lg:block  text-white text-lg">
             {label}
         </p>
 
