@@ -3,7 +3,7 @@ import React from "react";
 interface InputProps {
   placeholder: string;
   value: string;
-  type: string;
+  type?: string;
   disabled: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
