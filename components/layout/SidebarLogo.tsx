@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { BsTwitter} from "react-icons/bs";
 
-const SlidebarLogo = () => {
+const SidebarLogo = () => {
     const router = useRouter();
     return (
         <div className="
@@ -22,4 +22,4 @@ const SlidebarLogo = () => {
     );
 }
 
-export default SlidebarLogo;
+export default SidebarLogo;
