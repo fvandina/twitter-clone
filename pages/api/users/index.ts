@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const users = await prisma.user.findMany({
         orderBy: {
-          createAt: 'desc'
+          createdAt: 'desc'
         }
       });
 
