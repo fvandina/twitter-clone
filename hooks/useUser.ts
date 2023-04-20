@@ -12,7 +12,7 @@ const useUser = (userId: string) => {
     data,
     error,
     isLoading,
-    mutate,
+    mutate
   };
 };
 
