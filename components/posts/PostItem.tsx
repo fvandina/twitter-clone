@@ -7,10 +7,10 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 
 interface PostItemProps {
-  userId: string;
+  userId?: string;
   data: Record<string, any>;
 }
-const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
+const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 

@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
+import Button from "./Button";
+import Avatar from "./Avatar";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
 import usePosts from "@/hooks/usePosts";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import Button from "./Button";
-import Avatar from "./Avatar";
 
 interface FormProps {
   placeholder: string;
@@ -19,7 +19,8 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   const loginModal = useLoginModal();
 
   const { data: currentUser } = useCurrentUser();
-  const { mutate: mutatePost } = usePosts(currentUser.id);
+
+  const { mutate: mutatePost } = usePosts();
 
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -40,19 +41,19 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [body, currentUser.id, mutatePost]);
+  }, [body, currentUser?.id, mutatePost]);
 
   return (
     <div className="border-b-[1px] border-neutral-800 px-5 py-2">
       {currentUser ? (
         <div className="flex flex-row gap-4">
           <div>
-            <Avatar userId={currentUser.id} />
+            <Avatar userId={currentUser?.id} />
           </div>
           <div className="w-full">
             <textarea
               disabled={isLoading}
-              onChange={(e)=>setBody(e.target.value)}
+              onChange={(e) => setBody(e.target.value)}
               value={body}
               className="
                 disabled:opacity-80
@@ -68,10 +69,9 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                 text-white
               "
               placeholder={placeholder}
-            >              
-            </textarea>
+            ></textarea>
             <hr
-                className="
+              className="
                   opacity-0
                   peer-focus:opacity-100
                   h-[1px]
@@ -79,15 +79,14 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                   border-neutral-800
                   transition
                 "
-              />
-              <div className="mt-4 flex flex-row justify-end">
-                <Button
+            />
+            <div className="mt-4 flex flex-row justify-end">
+              <Button
                 disabled={isLoading || !body}
                 onClick={onSubmit}
                 label="Tweet"
-
-                />
-              </div>
+              />
+            </div>
           </div>
         </div>
       ) : (
