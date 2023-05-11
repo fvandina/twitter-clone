@@ -3,9 +3,16 @@
 @tailwind utilities;
 
 :root{
-  @apply h-full bg-black
+  @apply h-full bg-black  text-white 
 }
 
 body {
-  @apply h-full bg-black
+  @apply h-full bg-black text-white
+}
+
+.next-error-h1{
+  @apply text-white
+}
+.next-error-h1,  div>h2{
+  @apply text-white
 }

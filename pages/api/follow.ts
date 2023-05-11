@@ -18,6 +18,9 @@ export default async function handler(
       throw new Error("Not signed in");
     }
 
+    //por problemas con la session no recupera el usuario de la session
+    //por eso toca enviar el id por parametros y consultar en la base
+    //const currentUser = serverAuth(req);
     const currentUser = await prisma.user.findUnique({
       where: {
         id: currentUserId,
