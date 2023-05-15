@@ -26,9 +26,17 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
 
     try {
       if (hasLiked) {
-        await axios.delete("/api/like", { data: { postId: postId } });
+        await axios.delete("/api/like", {
+          data: {
+            postId: postId,
+            currentUserId: currentUser?.id,
+          },
+        });
       } else {
-        await axios.post("/api/like", { postId });
+        await axios.post("/api/like", {
+          postId,
+          currentUserId: currentUser?.id,
+        });
       }
       mutateFetchedPost();
       mustateFetchedPosts();
@@ -48,7 +56,7 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
 
   return {
     hasLiked,
-    toggleLike
+    toggleLike,
   };
 };
 

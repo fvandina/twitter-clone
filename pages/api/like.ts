@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/libs/serverAuth";
 import prisma from "@/libs/prismadb";
+import { getSession } from "next-auth/react";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,11 +12,22 @@ export default async function handler(
   }
 
   try {
-    const { postId } = req.body;
+    const { postId, currentUserId } = req.body;
 
-    const { currentUser } = await serverAuth(req);
+    
+    //problemas con serverAuth
+    //const { currentUser } = await serverAuth(req);
+    const currentUser = await prisma.user.findUnique({
+      where: {
+        id: currentUserId,
+      },
+    });
 
-    if (!postId || postId !== "string") {
+    if (!currentUser) {
+      throw new Error("Not signed in");
+    }
+
+    if (!postId || typeof postId !== "string") {
       throw new Error("Invalid ID");
     }
 

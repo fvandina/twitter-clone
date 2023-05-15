@@ -26,13 +26,13 @@ const useFollow = (userId: string) => {
         await axios.delete("/api/follow", {
           data: {
             userId: userId,
-            currentUserId: currentUser?.id,
+            currentUserId: currentUser?.id
           },
         });
       } else {
         await axios.post("/api/follow", {
           userId: userId,
-          currentUserId: currentUser?.id,
+          currentUserId: currentUser?.id
         });
       }
 
