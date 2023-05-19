@@ -12,16 +12,14 @@ export default async function handler(
 
   try {
     if (req.method === "POST") {
-       //FIXME: se presenta un error por algun motivo no explicado  no lee la sesion
-    //razon por la cual se envia el id por la peticion
-    //const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth(req, res);
     
-      const { id, body } = req.body;
+      const {body } = req.body;
 
       const post = await prisma.post.create({
         data: {
           body,
-          userId: id,
+          userId: currentUser.id
         },
       });
 

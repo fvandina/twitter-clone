@@ -8,9 +8,9 @@ import RegisterModal from "@/components/modals/RegisterModal";
 import EditModal from "@/components/modals/EditModal";
 import "@/styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps:{ session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
       <Toaster/>
       <EditModal/>
       <RegisterModal />

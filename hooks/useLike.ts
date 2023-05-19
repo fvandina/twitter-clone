@@ -28,14 +28,12 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       if (hasLiked) {
         await axios.delete("/api/like", {
           data: {
-            postId: postId,
-            currentUserId: currentUser?.id,
+            postId: postId
           },
         });
       } else {
         await axios.post("/api/like", {
-          postId,
-          currentUserId: currentUser?.id,
+          postId
         });
       }
       mutateFetchedPost();

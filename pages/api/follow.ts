@@ -11,25 +11,9 @@ export default async function handler(
   }
 
   try {
-    const {userId, currentUserId } = req.body;
+    const { userId } = req.body;
 
-    
-    if (!currentUserId || typeof currentUserId !== "string") {
-      throw new Error("Not signed in");
-    }
-
-    //por problemas con la session no recupera el usuario de la session
-    //por eso toca enviar el id por parametros y consultar en la base
-    //const currentUser = serverAuth(req);
-    const currentUser = await prisma.user.findUnique({
-      where: {
-        id: currentUserId,
-      },
-    });
-
-    if (!currentUser ) {
-      throw new Error("Not signed in");
-    }
+    const { currentUser } = await serverAuth(req, res);
 
     if (!userId || typeof userId !== "string") {
       throw new Error("Invalid ID");
@@ -45,7 +29,7 @@ export default async function handler(
       throw new Error("Invalid ID");
     }
 
-    let updatedFollowingIds = [...(currentUser.followingIds || [])];
+    let updatedFollowingIds = [...(currentUser.followingIds || [])]; 
 
     if (req.method === "POST") {
       updatedFollowingIds.push(userId);

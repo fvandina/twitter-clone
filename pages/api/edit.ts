@@ -9,12 +9,10 @@ export default async function handler(
   if (req.method !== "PATCH") {
     return res.status(405).end();
   }
-  try {
-    //FIXME: se presenta un error por algun motivo no explicado  no lee la sesion
-    //razon por la cual se envia el id por la peticion
-    //const { currentUser } = await serverAuth(req);
+  try {    
+    const { currentUser } = await serverAuth(req, res);
 
-    const { id, name, username, bio, profileImage, coverImage } = req.body;
+    const { name, username, bio, profileImage, coverImage } = req.body;
 
     if (!name || !username) {
       throw new Error("Missing fields");
@@ -22,7 +20,7 @@ export default async function handler(
 
     const updateUser = await prisma.user.update({
       where: {
-        id,
+        id : currentUser.id,
       },
       data: {
         name,

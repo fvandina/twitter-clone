@@ -11,16 +11,11 @@ export default async function handler(
   }
 
   try {
-    const { postId } = req.body;
+    const {body} = req.body;
+    const { postId, UserId } = req.query;
 
+    const { currentUser } = await serverAuth(req, res);
     
-    //problemas con serverAuth
-    const { currentUser } = await serverAuth(req, res);   
-
-    if (!currentUser) {
-      throw new Error("Not signed in");
-    }
-
     if (!postId || typeof postId !== "string") {
       throw new Error("Invalid ID");
     }
